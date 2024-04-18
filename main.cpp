@@ -13,6 +13,8 @@ string print_menu(){
     cout << "(1) Neue Voc hinzufuegen\n";
     cout << "(2) Voctest starten\n";
     cout << "(3) Voc anzeigen\n";
+    cout << "(4) Wortspeicher loeschen\n";
+    cout << "(5) Wort loeschen\n";
     string option;
     cin >> option;
     return option;
@@ -36,26 +38,28 @@ void speichern(string File, vector<string> sprache){
         copy(sprache.begin(), sprache.end(), output_iterator);
 }
 
-bool ask_word(vector<string> german, vector<string> english) {
+bool ask_word(vector<string> german, vector<string> english){
     int random = rand() % german.size();
     string sel_elem = german[random];
     cout << "Uebersetze: " + sel_elem + "\n";
     string userInput;
     string right = english[random];
     cin >> userInput;
-    if (userInput == right) {
+    if (userInput == right){
         cout << "Richtig\n";
         return true;
     }
-    else {
+    else{
         cout << "Falsch \n" + sel_elem + " auf Englisch ist: " + right + "\n";
         return false;
     }
 }
 
-int main() {
+int main(){
     vector<string> german_voc = load_text("german_voc.txt");
     vector<string> english_voc = load_text("english_voc.txt");
+    vector<string> leer;
+    leer.push_back("");
 
     string option = print_menu();
 
@@ -72,7 +76,7 @@ int main() {
         //Englisch
         english_voc.push_back(english_word);
         cout << "Voc hinzugefuegt\n";
-        cout << "Voc insgesamt: "+ to_string(german_voc.size());
+        cout << "Voc insgesamt: "+ to_string(german_voc.size()) + "\n";
 
         speichern("./german_voc.txt", german_voc);
         speichern("./english_voc.txt", english_voc);    
@@ -97,12 +101,37 @@ int main() {
     }
     if (option == "3"){
         string str3;
+        string str2;
         ifstream in3("german_voc.txt");
-        while (getline(in3, str3))
+        ifstream in2("english_voc.txt");
+        while (getline(in3, str3), getline(in2, str2))
         {   
             if(str3.size() > 0)
-                cout << str3 + "\n";
+                cout << str3 + " -- " + str2 + "\n";
         }
+    }
+    if (option == "4"){
+        speichern("./german_voc.txt", leer);
+        speichern("./english_voc.txt", leer);
+    }
+    if (option == "5"){
+        string str3;
+        string str2;
+        int i;
+        int j = 0;
+        ifstream in3("german_voc.txt");
+        ifstream in2("english_voc.txt");
+        while (getline(in3, str3), getline(in2, str2))
+        {   
+            if(str3.size() > 0)
+                j++;
+                cout << to_string(j) + ": " + str3 + " -- " + str2 + "\n";
+        }
+        cin >> i;
+        german_voc[i-1] = "";
+        english_voc[i-1] = "";
+        speichern("./german_voc.txt", german_voc);
+        speichern("./english_voc.txt", english_voc);
     }
 
     return 0; 
