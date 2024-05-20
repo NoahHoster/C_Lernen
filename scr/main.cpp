@@ -56,8 +56,8 @@ bool ask_word(vector<string> german, vector<string> english){
 }
 
 int main(){
-    vector<string> german_voc = load_text("german_voc.txt");
-    vector<string> english_voc = load_text("english_voc.txt");
+    vector<string> german_voc = load_text("./data/german_voc.txt");
+    vector<string> english_voc = load_text("./data/english_voc.txt");
     vector<string> leer;
     leer.push_back("");
 
@@ -78,8 +78,8 @@ int main(){
         cout << "Voc hinzugefuegt\n";
         cout << "Voc insgesamt: "+ to_string(german_voc.size()) + "\n";
 
-        speichern("./german_voc.txt", german_voc);
-        speichern("./english_voc.txt", english_voc);    
+        speichern("./data/german_voc.txt", german_voc);
+        speichern("./data/english_voc.txt", english_voc);    
     }
 
     if (option == "2"){
@@ -102,8 +102,8 @@ int main(){
     if (option == "3"){
         string str3;
         string str2;
-        ifstream in3("german_voc.txt");
-        ifstream in2("english_voc.txt");
+        ifstream in3("./data/german_voc.txt");
+        ifstream in2("./data/english_voc.txt");
         while (getline(in3, str3), getline(in2, str2))
         {   
             if(str3.size() > 0)
@@ -111,16 +111,16 @@ int main(){
         }
     }
     if (option == "4"){
-        speichern("./german_voc.txt", leer);
-        speichern("./english_voc.txt", leer);
+        speichern("./data/german_voc.txt", leer);
+        speichern("./data/english_voc.txt", leer);
     }
     if (option == "5"){
         string str3;
         string str2;
         int i;
         int j = 0;
-        ifstream in3("german_voc.txt");
-        ifstream in2("english_voc.txt");
+        ifstream in3("./data/german_voc.txt");
+        ifstream in2("./data/english_voc.txt");
         while (getline(in3, str3), getline(in2, str2))
         {   
             if(str3.size() > 0)
@@ -130,8 +130,8 @@ int main(){
         cin >> i;
         german_voc[i-1] = "";
         english_voc[i-1] = "";
-        speichern("./german_voc.txt", german_voc);
-        speichern("./english_voc.txt", english_voc);
+        speichern("./data/german_voc.txt", german_voc);
+        speichern("./data/english_voc.txt", english_voc);
     }
 
     return 0; 
